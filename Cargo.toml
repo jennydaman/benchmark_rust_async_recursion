@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "du_fs",
+    "du_async"
+]
+
