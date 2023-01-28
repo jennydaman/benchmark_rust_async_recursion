@@ -5,7 +5,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let path = Path::new(&args[1]);
     let size = du(path);
-    println!("{}", size)
+    println!("{size}")
 }
 
 fn du(path: &Path) -> u64 {
@@ -17,7 +17,7 @@ fn du(path: &Path) -> u64 {
                 match fs::read_dir(path) {
                     Ok(rd) => {
                         metadata.len()
-                            + rd.map(|r| r.and_then(|entry| Ok(du(&entry.path()))).unwrap_or(0))
+                            + rd.map(|r| r.map(|entry| du(&entry.path())).unwrap_or(0))
                                 .sum::<u64>()
                     }
                     Err(_e) => 0,
